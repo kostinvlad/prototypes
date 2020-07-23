@@ -1,6 +1,7 @@
 export default class Character {
   constructor(name, type) {
     const types = ['Bowman', 'Swordsman', 'Magician', 'Daemon', 'Undead', 'Zombie'];
+
     if (name.length < 2 || name.length > 10 || typeof (name) !== 'string') {
       throw new Error('Ошибка в name');
     }
@@ -13,42 +14,24 @@ export default class Character {
     this.type = type;
     this.health = 100;
     this.level = 1;
-    this.attack = Character.prototype[type].attack;
-    this.defense = Character.prototype[type].defense;
   }
-}
 
-Character.prototype = {
-  Bowman: {
-    attack: 25,
-    defense: 25,
-  },
-  Swordsman: {
-    attack: 40,
-    defense: 10,
-  },
-  Magician: {
-    attack: 10,
-    defense: 40,
-  },
-  Undead: {
-    attack: 25,
-    defense: 25,
-  },
-  Zombie: {
-    attack: 40,
-    defense: 10,
-  },
-  Daemon: {
-    attack: 10,
-    defense: 40,
-  },
+  levelUp() {
+    if (this.health <= 0) {
+      throw new Error('Цель мертва');
+    } else {
+      this.level += 1;
+      this.attack += this.attack * 0.2;
+      this.defence += this.defence * 0.2;
+      this.health = 100;
+    }
+  }
 
   damage(points) {
     if (this.health >= 0) {
-      this.health -= points * (1 - this.defense / 100);
+      this.health -= points * (1 - this.defence / 100);
     } else {
       throw new Error('Цель мертва');
     }
-  },
-};
+  }
+}

@@ -1,130 +1,169 @@
 import Character from '../classes/Char';
+import Bowman from '../bowman';
+import Daemon from '../daemon';
+import Magician from '../magician';
+import Zombie from '../zombie';
+import Undead from '../undead';
+import Swordsman from '../swordsman';
 
-test('Создание нового персонажа Zombie', () => {
-  const received = new Character('Doc', 'Zombie');
-  const expected = {
-    name: 'Doc',
-    type: 'Zombie',
-    health: 100,
-    level: 1,
-    attack: 40,
-    defense: 10,
-  };
-  expect(received).toEqual(expected);
+test('Наследуется от Character', () => {
+  expect(new Zombie('One', 'Zombie')).toBeInstanceOf(Character);
 });
 
-test('Создание нового персонажа Swordsman', () => {
-  const received = new Character('Doc', 'Swordsman');
-  const expected = {
-    name: 'Doc',
-    type: 'Swordsman',
-    health: 100,
-    level: 1,
-    attack: 40,
-    defense: 10,
-  };
-  expect(received).toEqual(expected);
-});
-
-test('Создание нового персонажа Magician', () => {
-  const received = new Character('Doc', 'Magician');
-  const expected = {
-    name: 'Doc',
-    type: 'Magician',
-    health: 100,
-    level: 1,
-    attack: 10,
-    defense: 40,
-  };
-  expect(received).toEqual(expected);
+test('Наследуется от Character', () => {
+  expect(new Undead('One', 'Undead')).toBeInstanceOf(Character);
 });
 
 test('Создание нового персонажа Undead', () => {
-  const received = new Character('Doc', 'Undead');
+  const received = new Zombie('One', 'Zombie');
   const expected = {
-    name: 'Doc',
-    type: 'Undead',
-    health: 100,
-    level: 1,
-    attack: 25,
-    defense: 25,
-  };
-  expect(received).toEqual(expected);
-});
-
-test('Создание нового персонажа Daemon', () => {
-  const received = new Character('Doc', 'Daemon');
-  const expected = {
-    name: 'Doc',
-    type: 'Daemon',
+    name: 'One',
+    type: 'Zombie',
     health: 100,
     level: 1,
     attack: 10,
-    defense: 40,
+    defence: 40,
   };
   expect(received).toEqual(expected);
 });
 
 test('Создание нового персонажа Bowman', () => {
-  const received = new Character('Doc', 'Bowman');
+  const received = new Bowman('One', 'Bowman');
   const expected = {
-    name: 'Doc',
+    name: 'One',
     type: 'Bowman',
     health: 100,
     level: 1,
     attack: 25,
-    defense: 25,
+    defence: 25,
   };
   expect(received).toEqual(expected);
 });
 
-test('Ошибка в type', () => {
-  const errType = { name: 'Doc', type: 'Bow' };
-  expect(() => {
-    const err = new Character(errType);
-    return err;
-  }).toThrow();
+test('Создание нового персонажа Undead', () => {
+  const received = new Undead('One', 'Undead');
+  const expected = {
+    name: 'One',
+    type: 'Undead',
+    health: 100,
+    level: 1,
+    attack: 25,
+    defence: 25,
+  };
+  expect(received).toEqual(expected);
+});
+
+test('Создание нового персонажа Swordsman', () => {
+  const received = new Swordsman('One', 'Swordsman');
+  const expected = {
+    name: 'One',
+    type: 'Swordsman',
+    health: 100,
+    level: 1,
+    attack: 40,
+    defence: 10,
+  };
+  expect(received).toEqual(expected);
+});
+
+test('Создание нового персонажа Magician', () => {
+  const received = new Magician('One', 'Magician');
+  const expected = {
+    name: 'One',
+    type: 'Magician',
+    health: 100,
+    level: 1,
+    attack: 10,
+    defence: 40,
+  };
+  expect(received).toEqual(expected);
+});
+
+test('Создание нового персонажа Daemon', () => {
+  const received = new Daemon('One', 'Daemon');
+  const expected = {
+    name: 'One',
+    type: 'Daemon',
+    health: 100,
+    level: 1,
+    attack: 10,
+    defence: 40,
+  };
+  expect(received).toEqual(expected);
+});
+
+test('Тип Character', () => {
+  const received = typeof Character;
+  const expected = 'function';
+  expect(received).toBe(expected);
+});
+
+test('Проверка свойств', () => {
+  const magic = new Magician('One', 'Magician');
+  const received = magic.attack;
+  const expected = 10;
+  expect(received).toBe(expected);
 });
 
 test('Ошибка в name', () => {
-  const errName = { name: 'Do', type: 'Bowman' };
+  const errName = { name: 'A', type: 'Bowman' };
   expect(() => {
-    const err = new Character(errName);
-    return err;
+    const bow = new Character(errName);
+    return bow;
   }).toThrow();
 });
 
 test('Ошибка в name', () => {
   const errName = { name: 1, type: 'Bowman' };
   expect(() => {
-    const err = new Character(errName);
-    return err;
+    const bow = new Character(errName);
+    return bow;
   }).toThrow();
 });
 
 test('Ошибка в name', () => {
-  const errName = { name: 'DoctorDulitle', type: 'Bowman' };
+  const errName = { name: 'OneTwoThreeFour', type: 'Bowman' };
   expect(() => {
-    const err = new Character(errName);
-    return err;
+    const bow = new Character(errName);
+    return bow;
   }).toThrow();
 });
 
 test('Ошибка в type', () => {
+  const errType = { name: 'One', type: 'Bow' };
   expect(() => {
-    const err = new Character('Doc', 'Err');
-    return err;
+    const bow = new Character(errType);
+    return bow;
   }).toThrow();
 });
 
+test('Проверка levelUp при health > 0', () => {
+  const daemon = new Daemon('One', 'Daemon');
+  daemon.levelUp();
+  expect(2).toEqual(daemon.level);
+});
+
+test('Проверка levelUp при health < 0', () => {
+  const swordsman = new Swordsman('One', 'Swordsman');
+  swordsman.health = -1;
+  expect(() => swordsman.levelUp()).toThrow();
+});
+
 test('Проверка damage при health > 0', () => {
-  const undead = new Character('Doc', 'Undead');
+  const undead = new Undead('One', 'Undead');
   undead.damage(10);
   expect(92.5).toBeCloseTo(undead.health);
 });
 
 test('Проверка damage при health < 0', () => {
-  const undead = new Character('Doc', 'Undead');
-  undead.health = -1;
-  expect(() => undead.damage(10)).toThrow();
+  const magician = new Magician('One', 'Magician');
+  magician.health = -1;
+  expect(() => magician.damage(10)).toThrow();
+});
+
+test('Проверка type', () => {
+  expect(() => {
+    const undead = new Undead('One', 'Unreal');
+    return undead;
+  }).toThrow();
 });
